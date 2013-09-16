@@ -7,8 +7,10 @@ import javax.microedition.midlet.MIDletStateChangeException;
 
 
 public class vNes extends MIDlet implements CommandListener {
-
+	private static vNesCanvas canvasUI;
+	
 	protected void startApp() throws MIDletStateChangeException {
+		canvasUI = new vNesCanvas(this);
 		// TODO Auto-generated method stub
 		
 	}
@@ -94,5 +96,9 @@ public class vNes extends MIDlet implements CommandListener {
         }
 
         return image;
+    }
+    
+    public static vNesCanvas getCanvasUI(){
+    	return canvasUI;
     }
 }

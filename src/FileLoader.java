@@ -40,7 +40,6 @@ public class FileLoader {
                 }
 
             }
-            ZipInputStream zis = null;
             boolean zip = false;
 
             int pos = 0;
@@ -51,19 +50,10 @@ public class FileLoader {
 
                 long total = -1;
 
-                if (fileName.endsWith(".zip")) {
-                    zis = new ZipInputStream(in);
-                    ZipEntry entry = zis.getNextEntry();
-                    total = entry.getSize();
-                    zip = true;
-                } else if (Globals.appletMode && ui != null) {
-                    // Can't get the file size, so use the applet parameter
-                    total = ui.getRomFileSize();
-                }
 
                 long progress = -1;
                 while (readbyte != -1) {
-                    readbyte = zip ? zis.read(tmp, pos, tmp.length - pos) : in.read(tmp, pos, tmp.length - pos);
+                    readbyte =  in.read(tmp, pos, tmp.length - pos);
                     if (readbyte != -1) {
                         if (pos >= tmp.length) {
                             byte[] newtmp = new byte[tmp.length + 32768];

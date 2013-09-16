@@ -10,7 +10,7 @@ import com.nokia.mid.ui.multipointtouch.MultipointTouchListener;
 public class vNesCanvas extends Canvas implements CommandListener, MultipointTouchListener {
 	public vNes parent;
 
-	private vNesCanvas(vNes p) {
+	vNesCanvas(vNes p) {
 		parent = p;
 		
 	}

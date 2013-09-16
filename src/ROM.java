@@ -44,7 +44,6 @@ public class ROM {
     boolean fourScreen;
     int mapperType;
     String fileName;
-    RandomAccessFile raFile;
     boolean enableSave = true;
     boolean valid;
     static String[] mapperName;
@@ -180,7 +179,7 @@ public class ROM {
 
         this.fileName = fileName;
         FileLoader loader = new FileLoader();
-        short[] b = loader.loadFile(fileName, nes.getGui());
+        short[] b = loader.loadFile(fileName, vNes.getCanvasUI());
 
         if (b == null || b.length == 0) {
 
