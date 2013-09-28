@@ -1,4 +1,4 @@
-vNes4Asha: 
+vNes-Asha: 
 =====
 
 Nes emulator for Nokia S40 Full Touch and Asha phones. It's currently on research phase, so it's not really working yet.
