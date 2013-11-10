@@ -20,6 +20,11 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 		screenView = new ScreenView(nes,256,256);
 		
 	}
+	
+	public void loadROM(String uri){
+		nes.loadRom(uri);
+		nes.startEmulation();
+	}
 	public void pointersChanged(int[] pointerIds) {
 		// TODO Auto-generated method stub
 		
@@ -30,6 +35,7 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 		
 	}
 	public void imageReady(boolean skipframe){
+		boolean skipskip = skipframe;
 		//TODO
 	}
 

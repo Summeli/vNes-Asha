@@ -204,7 +204,7 @@ class FileSelector
                 }
             }
             // list all gb files, .gb files are hidden in Asha
-            Enumeration listOfFiles = currentRoot.list("*.gb",false);
+            Enumeration listOfFiles = currentRoot.list("*.nes",false);
             while (listOfFiles.hasMoreElements()) {
                 String currentFile = (String) listOfFiles.nextElement();
                 if (currentFile.endsWith(FILE_SEPARATOR)) {
@@ -214,7 +214,7 @@ class FileSelector
                 }
             }
             
-            listOfFiles = currentRoot.list("*.gbc", false);
+            listOfFiles = currentRoot.list("*.NES", false);
             while (listOfFiles.hasMoreElements()) {
                 String currentFile = (String) listOfFiles.nextElement();
                 if (currentFile.endsWith(FILE_SEPARATOR)) {
@@ -235,7 +235,6 @@ class FileSelector
 
     private void showFileSelectDialog(){
     	//only available on Asha
-    	/*
     	if(vNesSettings.isAsha == true ){
     	    // Instantiate the FileSelect with types
     	    FileSelectDetail[] arrSelectedFiles;
@@ -247,7 +246,7 @@ class FileSelector
 			}
 			midlet.loadSelectedRom(arrSelectedFiles[0].url);
 			
-    	}*/
+    	}
     }
     private class FileSelectorOperations implements Operation {
 

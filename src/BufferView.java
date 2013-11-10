@@ -41,7 +41,6 @@ public class BufferView {
     private long prevFrameTime;
     private String fps;
     private int fpsCounter;
-    private Font fpsFont = new Font();
     private int bgColor = 000;
     private vNesCanvas canvas;
     // Constructor
