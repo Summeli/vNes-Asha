@@ -9,9 +9,15 @@ import com.nokia.mid.ui.multipointtouch.MultipointTouchListener;
 
 public class vNesCanvas extends Canvas implements CommandListener, MultipointTouchListener {
 	public vNes parent;
-
+	private HiResTimer timer;
+	private ScreenView screenView;
+	private NES nes= null;
+	
 	vNesCanvas(vNes p) {
 		parent = p;
+		timer = new HiResTimer();
+		nes = new NES(this);
+		screenView = new ScreenView(nes,256,256);
 		
 	}
 	public void pointersChanged(int[] pointerIds) {
@@ -22,6 +28,9 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	public void commandAction(Command arg0, Displayable arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void imageReady(boolean skipframe){
+		//TODO
 	}
 
 	protected void paint(Graphics arg0) {
@@ -38,4 +47,30 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 		// TODO Auto-generated method stub
 		
 	}
+	
+	//stuff for the emulator engine
+	public HiResTimer getTimer(){
+		return timer;
+	}
+	
+	public ScreenView getScreenView(){
+		return this.screenView;
+	}
+	
+	//dummy functions for returning shit we don't need
+    public BufferView getImgPalView() {
+        return null;
+    }
+    
+    public BufferView getSprPalView() {
+        return null;
+    }
+
+    public BufferView getNameTableView() {
+        return null;
+    }
+    
+    public BufferView getPatternView() {
+        return null;
+    }
 }

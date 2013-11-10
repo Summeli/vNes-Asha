@@ -586,6 +586,8 @@ public class PPU {
         }
 
         // Show sound buffer:
+        //TODO: no sound atm
+        /*
         if (showSoundBuffer && nes.getPapu().getLine() != null) {
 
             bufferSize = nes.getPapu().getLine().getBufferSize();
@@ -602,7 +604,7 @@ public class PPU {
                     }
                 }
             }
-        }
+        }*/
 
     }
 
@@ -1596,7 +1598,8 @@ public class PPU {
         for (int i = 0; i < 240; i++) {
             scanlineChanged[i] = true;
         }
-        java.util.Arrays.fill(oldFrame, -1);
+        J2MEUtils.fillArray(oldFrame, -1);
+        //java.util.Arrays.fill(oldFrame, -1);
         requestRenderAll = true;
 
     }
@@ -1950,9 +1953,10 @@ public class PPU {
         regFH = 0;
         regS = 0;
 
-        java.util.Arrays.fill(scanlineChanged, true);
-        java.util.Arrays.fill(oldFrame, -1);
-
+        //java.util.Arrays.fill(scanlineChanged, true);
+        //java.util.Arrays.fill(oldFrame, -1);
+        J2MEUtils.fillArray(scanlineChanged, true);
+        J2MEUtils.fillArray(oldFrame, -1);
         // Initialize stuff:
         init();
 

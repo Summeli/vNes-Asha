@@ -373,4 +373,8 @@ public class NES {
         palTable = null;
 
     }
+    
+    public vNesCanvas getGui(){
+    	return this.gui;
+    }
 }

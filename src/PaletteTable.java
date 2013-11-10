@@ -71,9 +71,10 @@ public class PaletteTable {
                 // Read text file with hex codes.
                 InputStream fStr = getClass().getResourceAsStream(file);
                 InputStreamReader isr = new InputStreamReader(fStr);
-                BufferedReader br = new BufferedReader(isr);
+               // BufferedReader br = new BufferedReader(isr);
 
-                String line = br.readLine();
+                //String line = br.readLine();
+                String line = J2MEUtils.readBufferedLine(isr);
                 String hexR, hexG, hexB;
                 int palIndex = 0;
                 while (line != null) {
@@ -84,15 +85,16 @@ public class PaletteTable {
                         hexG = line.substring(3, 5);
                         hexB = line.substring(5, 7);
 
-                        r = Integer.decode("0x" + hexR).intValue();
-                        g = Integer.decode("0x" + hexG).intValue();
-                        b = Integer.decode("0x" + hexB).intValue();
+                        r = J2MEUtils.HexStringToInt(hexR);//Integer.decode("0x" + hexR).intValue();
+                        g = J2MEUtils.HexStringToInt(hexG); //g = Integer.decode("0x" + hexG).intValue();
+                        b = J2MEUtils.HexStringToInt(hexB);//b = Integer.decode("0x" + hexB).intValue();
                         origTable[palIndex] = r | (g << 8) | (b << 16);
 
                         palIndex++;
 
                     }
-                    line = br.readLine();
+                    //line = br.readLine();
+                    line = J2MEUtils.readBufferedLine(isr);
                 }
             }
 
@@ -169,7 +171,8 @@ public class PaletteTable {
     public int RGBtoHSL(int r, int g, int b) {
 
         float[] hsbvals = new float[3];
-        hsbvals = Color.RGBtoHSB(b, g, r, hsbvals);
+        //hsbvals = Color.RGBtoHSB(b, g, r, hsbvals);
+        hsbvals = J2MEUtils.RGBtoHSB(r, g, b, hsbvals);
         hsbvals[0] -= Math.floor(hsbvals[0]);
 
         int ret = 0;
@@ -188,7 +191,8 @@ public class PaletteTable {
     }
 
     public int HSLtoRGB(int h, int s, int l) {
-        return Color.HSBtoRGB(h / 255.0f, s / 255.0f, l / 255.0f);
+       // return Color.HSBtoRGB(h / 255.0f, s / 255.0f, l / 255.0f);
+    	return J2MEUtils.HSBtoRGB(h / 255.0f, s / 255.0f, l / 255.0f);
     }
 
     public int HSLtoRGB(int hsl) {
@@ -197,8 +201,8 @@ public class PaletteTable {
         h = (float) (((hsl >> 16) & 0xFF) / 255d);
         s = (float) (((hsl >> 8) & 0xFF) / 255d);
         l = (float) (((hsl) & 0xFF) / 255d);
-        return Color.HSBtoRGB(h, s, l);
-
+        //return Color.HSBtoRGB(h, s, l);
+        return J2MEUtils.HSBtoRGB(h,s,l);
     }
 
     public int getHue(int hsl) {

@@ -1,3 +1,5 @@
+import javax.microedition.media.Player;
+
 /*
 vNES
 Copyright © 2006-2013 Open Emulation Project
@@ -20,8 +22,9 @@ public final class PAPU {
 
     NES nes;
     Memory cpuMem;
-    Mixer mixer;
-    SourceDataLine line;
+    //Mixer mixer;
+    //SourceDataLine line;
+    Player player;
     ChannelSquare square1;
     ChannelSquare square2;
     ChannelTriangle triangle;
@@ -146,6 +149,7 @@ public final class PAPU {
     public synchronized void start() {
 
         //System.out.println("* Starting PAPU lines.");
+    	/*
         if (line != null && line.isActive()) {
             //System.out.println("* Already running.");
             return;
@@ -173,7 +177,7 @@ public final class PAPU {
 
         } catch (Exception e) {
             //System.out.println("Couldn't get sound lines.");
-        }
+        }*/
 
     }
 
@@ -704,7 +708,7 @@ public final class PAPU {
 
     // Writes the sound buffer to the output line:
     public void writeBuffer() {
-
+/*
         if (line == null) {
             return;
         }
@@ -712,11 +716,12 @@ public final class PAPU {
         line.write(sampleBuffer, 0, bufferIndex);
 
         bufferIndex = 0;
+        */
 
     }
 
     public void stop() {
-
+/*
         if (line == null) {
             // No line to close. Probably lack of sound card.
             return;
@@ -728,7 +733,7 @@ public final class PAPU {
 
         // Lose line:
         line = null;
-
+*/
     }
 
     public int getSampleRate() {
@@ -909,17 +914,19 @@ public final class PAPU {
         stereoPosRDMC = masterVolume - stereoPosLDMC;
 
     }
-
+/*
     public SourceDataLine getLine() {
-        return line;
-    }
+    	return null;
+        //return line;
+    }*/
 
     public boolean isRunning() {
-        return (line != null && line.isActive());
+       return true;
+    	// return (line != null && line.isActive());
     }
 
     public int getMillisToAvailableAbove(int target_avail) {
-
+/*
         double time;
         int cur_avail;
         if ((cur_avail = line.available()) >= target_avail) {
@@ -930,7 +937,8 @@ public final class PAPU {
         time /= (stereo ? 4 : 2);
 
         return (int) time;
-
+*/
+    	return 300;
     }
 
     public int getBufferPos() {
@@ -1079,8 +1087,8 @@ public final class PAPU {
         noise = null;
         dmc = null;
 
-        mixer = null;
-        line = null;
+   //     mixer = null;
+   //     line = null;
 
     }
 }

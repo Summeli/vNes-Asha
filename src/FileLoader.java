@@ -17,6 +17,9 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.io.*;
 
+import javax.microedition.io.Connector;
+import javax.microedition.io.file.FileConnection;
+
 public class FileLoader {
 
     // Load a file.
@@ -25,16 +28,22 @@ public class FileLoader {
         int flen;
         byte[] tmp = new byte[2048];
 
+        FileConnection fileConn = null;
         // Read file:
         try {
 
+        	fileConn =
+                    (FileConnection) Connector.open(fileName, Connector.READ);
+
+
+             
             InputStream in;
-            in = getClass().getResourceAsStream(fileName);
+            in =  fileConn.openInputStream();
+            //in = getClass().getResourceAsStream(fileName);
 
             if (in == null) {
 
                 // Try another approach.
-                in = new FileInputStream(fileName);
                 if (in == null) {
                     throw new IOException("Unable to load " + fileName);
                 }
@@ -45,7 +54,7 @@ public class FileLoader {
             int pos = 0;
             int readbyte = 0;
 
-            if (!(in instanceof FileInputStream)) {
+            if (in != null) {
 
 
                 long total = -1;
@@ -75,9 +84,11 @@ public class FileLoader {
                 }
 
             } else {
-
+            	//fail
+            	 throw new IOException("Unable to load " + fileName);
                 // This is easy, can find the file size since it's
                 // in the local file system.
+            	/*
                 File f = new File(fileName);
                 int count = 0;
                 int total = (int) (f.length());
@@ -86,7 +97,7 @@ public class FileLoader {
                     count += in.read(tmp, count, total - count);
                 }
                 pos = total;
-
+            	 */
             }
 
             // Put into array without any padding:

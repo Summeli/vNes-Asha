@@ -16,7 +16,6 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import java.io.*;
-import java.util.zip.*;
 
 public class ByteBuffer {
 
