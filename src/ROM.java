@@ -198,7 +198,7 @@ public class ROM {
         // Check first four bytes:
         String fcode = new String(new byte[]{(byte) b[0], (byte) b[1], (byte) b[2], (byte) b[3]});
         if (!fcode.equals("NES" + new String(new byte[]{0x1A}))) {
-            //System.out.println("Header is incorrect.");
+        	vNes.showErrorMsg("Header is incorrect.");
             valid = false;
             return;
         }
@@ -221,6 +221,7 @@ public class ROM {
         boolean foundError = false;
         for (int i = 8; i < 16; i++) {
             if (header[i] != 0) {
+            	vNes.showErrorMsg("found some rom error, continueing....");
                 foundError = true;
                 break;
             }

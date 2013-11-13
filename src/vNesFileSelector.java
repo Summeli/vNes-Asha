@@ -44,7 +44,7 @@ import Operation;
 
 // Simple file selector class.
 // It naviagtes the file system and shows images currently available
-class FileSelector
+class vNesFileSelector
         extends List
         implements CommandListener, FileSystemListener {
 
@@ -70,7 +70,7 @@ class FileSelector
     private Ticker ticker = new Ticker("MeBoy");
     private boolean initialized = false;
     
-    FileSelector(vNes midlet) {
+    vNesFileSelector(vNes midlet) {
         super("vNes", List.IMPLICIT);
         setTicker(ticker);
         this.midlet = midlet;

@@ -22,7 +22,7 @@ class J2MEUtils{
         StringBuffer line = new StringBuffer();
         int c = reader.read();
 
-        while (c != -1 && c != '\n') {
+        while (c != -1 && c != '\n' && c!='\r') {
             line.append((char)c);
             c = reader.read();
         }

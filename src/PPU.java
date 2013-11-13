@@ -1397,7 +1397,7 @@ public class PPU {
                 }
             }
         }
-        nes.getGui().getPatternView().imageReady(false);
+        scr.imageReady(false);
 
     }
 

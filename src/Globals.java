@@ -24,7 +24,10 @@ public class Globals {
     public static int preferredFrameRate = 60;
     
     // Microseconds per frame:
-    public static int frameTime = 1000000 / preferredFrameRate;
+  //  public static int frameTime = 1000000 / preferredFrameRate;
+    //we have only microseconds in j2me
+    public static int frameTime = 1000 / preferredFrameRate;
+    
     // What value to flush memory with on power-up:
     public static short memoryFlushValue = 0xFF;
 
@@ -35,8 +38,10 @@ public class Globals {
     public static boolean disableSprites = false;
     public static boolean timeEmulation = true;
     public static boolean palEmulation;
-    public static boolean enableSound = true;
-    public static boolean focused = false;
+    
+    //public static boolean enableSound = true;
+    public static boolean enableSound = false;
+ //   public static boolean focused = false;
 
 //    public static HashMap keycodes = new HashMap(); //Java key codes
  //   public static HashMap controls = new HashMap(); //vNES controls codes

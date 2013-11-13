@@ -13,6 +13,9 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	private ScreenView screenView;
 	private NES nes= null;
 	
+	//some settings
+	private boolean timeemulation = false;
+	
 	vNesCanvas(vNes p) {
 		parent = p;
 		timer = new HiResTimer();
@@ -22,8 +25,24 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	}
 	
 	public void loadROM(String uri){
-		nes.loadRom(uri);
-		nes.startEmulation();
+        nes.loadRom(uri);
+
+        if (nes.rom.isValid()) {
+
+
+            // Set some properties:
+            Globals.timeEmulation = timeemulation;
+
+            // Start emulation:
+            //System.out.println("vNES is now starting the processor.");
+            nes.getCpu().beginExecution();
+
+        } else {
+
+            // ROM file was invalid.
+            System.out.println("vNES was unable to find (" + uri + ").");
+
+        }
 	}
 	public void pointersChanged(int[] pointerIds) {
 		// TODO Auto-generated method stub
@@ -35,13 +54,14 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 		
 	}
 	public void imageReady(boolean skipframe){
-		boolean skipskip = skipframe;
-		//TODO
+		if(skipframe == false)
+			repaint();
+		
 	}
 
-	protected void paint(Graphics arg0) {
+	protected void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		
+		g.drawImage(screenView.getImage(), 0, 0, 20);
 	}
 
 	public static InputHandler getJoy1() {
@@ -77,6 +97,6 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
     }
     
     public BufferView getPatternView() {
-        return null;
+        return screenView;
     }
 }

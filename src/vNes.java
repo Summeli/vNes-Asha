@@ -14,7 +14,7 @@ public class vNes extends MIDlet implements CommandListener {
 	
 	private List mainMenu;
 	private Form messageForm;
-	private FileSelector fileSelector;
+	private vNesFileSelector fileSelector;
 	
 	// UI components
 	public static Display display;
@@ -22,7 +22,7 @@ public class vNes extends MIDlet implements CommandListener {
 	protected void startApp() throws MIDletStateChangeException {
 		canvasUI = new vNesCanvas(this);
 		display = Display.getDisplay(this);
-		fileSelector = new FileSelector(this);
+		fileSelector = new vNesFileSelector(this);
 		showMainMenu();
 		
 	}
@@ -75,7 +75,7 @@ public class vNes extends MIDlet implements CommandListener {
 	}
 	
 	public static void showErrorMsg(String errorMsg){
-		
+		System.out.println(errorMsg);
 	}
 	
 	public static void printMsg(String msg){
@@ -83,7 +83,7 @@ public class vNes extends MIDlet implements CommandListener {
 	}
 	
 	public void fileSelectorExit() {
-		// TODO Auto-generated method stub
+		showMainMenu();
 		
 	}
 	public void loadSelectedRom(String url) {
