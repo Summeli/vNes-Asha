@@ -12,6 +12,7 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	private HiResTimer timer;
 	private ScreenView screenView;
 	private NES nes= null;
+	private static vNesKeyHandler inputHandler = null;
 	
 	//some settings
 	private boolean timeemulation = false;
@@ -21,10 +22,11 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 		timer = new HiResTimer();
 		nes = new NES(this);
 		screenView = new ScreenView(nes,256,256);
-		
+		inputHandler = new vNesKeyHandler();
 	}
 	
 	public void loadROM(String uri){
+		nes.reset();
         nes.loadRom(uri);
 
         if (nes.rom.isValid()) {
@@ -65,8 +67,7 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	}
 
 	public static InputHandler getJoy1() {
-		// TODO Auto-generated method stub
-		return null;
+		return inputHandler;
 	}
 	
 	public void showLoadProgress(int progress) {
