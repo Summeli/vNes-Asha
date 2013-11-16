@@ -57,9 +57,17 @@ public class FileLoader {
             if (in != null) {
 
 
-                long total = -1;
-
-
+                long total = fileConn.fileSize();
+                //just try to load it all in one loop
+                tmp = new byte[tmp.length + 32768];
+                
+                while (readbyte != -1) {
+                    readbyte =  in.read(tmp, pos, tmp.length - pos);
+                    if (readbyte != -1) {
+                        pos += readbyte;
+                    }
+		
+                /*
                 long progress = -1;
                 while (readbyte != -1) {
                     readbyte =  in.read(tmp, pos, tmp.length - pos);
@@ -79,25 +87,13 @@ public class FileLoader {
                         if (ui != null) {
                             ui.showLoadProgress((int) progress);
                         }
-                    }
+                    }*/
 
                 }
 
             } else {
             	//fail
             	 throw new IOException("Unable to load " + fileName);
-                // This is easy, can find the file size since it's
-                // in the local file system.
-            	/*
-                File f = new File(fileName);
-                int count = 0;
-                int total = (int) (f.length());
-                tmp = new byte[total];
-                while (count < total) {
-                    count += in.read(tmp, count, total - count);
-                }
-                pos = total;
-            	 */
             }
 
             // Put into array without any padding:

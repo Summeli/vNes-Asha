@@ -50,6 +50,8 @@ public class BufferView {
         this.height = height;
         this.scaleMode = -1;
         this.canvas = nes.getGui();
+     //   pix = new int[width * height];
+        pix = new int[256 * 256];
     }
 
     public void setBgColor(int color) {

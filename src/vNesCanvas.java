@@ -21,7 +21,7 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 		parent = p;
 		timer = new HiResTimer();
 		nes = new NES(this);
-		screenView = new ScreenView(nes,256,256);
+		screenView = new ScreenView(nes,this,256,240);
 		inputHandler = new vNesKeyHandler();
 	}
 	

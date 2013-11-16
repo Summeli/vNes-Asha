@@ -19,10 +19,10 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 public class ScreenView extends BufferView {
 
     private boolean notifyImageReady;
-    private NES nes;
-    public ScreenView(NES nes, int width, int height) {
+    private vNesCanvas canvas;
+    public ScreenView(NES nes, vNesCanvas canvas, int width, int height) {
     	super(nes,width,height);
-    	this.nes = nes;
+    	this.canvas = canvas;
     }
 
     public void init() {
@@ -36,7 +36,7 @@ public class ScreenView extends BufferView {
     public void imageReady(boolean skipFrame) {
 
         // Draw image first:
-        super.imageReady(skipFrame);
+       // super.imageReady(skipFrame);
 
         // Notify GUI, so it can write the sound buffer:
         
