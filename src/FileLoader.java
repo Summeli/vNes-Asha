@@ -59,10 +59,10 @@ public class FileLoader {
 
                 long total = fileConn.fileSize();
                 //just try to load it all in one loop
-                tmp = new byte[tmp.length + 32768];
+                tmp = new byte[(int) (total)];
                 
                 while (readbyte != -1) {
-                    readbyte =  in.read(tmp, pos, tmp.length - pos);
+                    readbyte =  in.read(tmp, pos, 0x2000);
                     if (readbyte != -1) {
                         pos += readbyte;
                     }
@@ -96,13 +96,15 @@ public class FileLoader {
             	 throw new IOException("Unable to load " + fileName);
             }
 
+            //TODO: why do this. I just don't get it
             // Put into array without any padding:
+            /*
             byte[] newtmp = new byte[pos];
             for (int i = 0; i < pos; i++) {
                 newtmp[i] = tmp[i];
             }
             tmp = newtmp;
-
+*/
             // File size:
             flen = tmp.length;
 

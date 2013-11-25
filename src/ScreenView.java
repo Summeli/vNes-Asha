@@ -45,6 +45,6 @@ public class ScreenView extends BufferView {
         if (notifyImageReady) {
            nes.getGui().imageReady(skipFrame);
         }*/
-
+    	canvas.imageReady(skipFrame);
     }
 }

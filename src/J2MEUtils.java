@@ -126,35 +126,13 @@ class J2MEUtils{
    //from javagaming: http://www.java-gaming.org/index.php?topic=4505.0, thanks @Abuse
    public static void fillArray(int [] array, int value)
    {
-      int length = Math.min(array.length,16);
-      for(int i=0; i< length;i++)
-      {
-         array[i] = value;
-      }
-      
-      while(length<<1 < array.length)
-      {
-         System.arraycopy(array,0,array,length,length);
-         length<<=1;
-      }
-      
-      System.arraycopy(array,0,array,length,array.length-length);
+      array[0] = value;
+      System.arraycopy(array,0,array,1,array.length-1);
    }
    
    public static void fillArray(boolean [] array, boolean value)
    {
-      int length = Math.min(array.length,16);
-      for(int i=0; i< length;i++)
-      {
-         array[i] = value;
-      }
-      
-      while(length<<1 < array.length)
-      {
-         System.arraycopy(array,0,array,length,length);
-         length<<=1;
-      }
-      
-      System.arraycopy(array,0,array,length,array.length-length);
+	  array[0] = value;
+	  System.arraycopy(array,0,array,1,array.length-1);
    }
 }

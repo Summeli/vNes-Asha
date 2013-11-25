@@ -15,7 +15,7 @@ public class vNes extends MIDlet implements CommandListener {
 	private List mainMenu;
 	private Form messageForm;
 	private vNesFileSelector fileSelector;
-	
+	private static InputHandler joystic = new vNesKeyHandler();
 	// UI components
 	public static Display display;
 	
@@ -93,8 +93,7 @@ public class vNes extends MIDlet implements CommandListener {
 	
     
 	public static InputHandler getJoy1() {
-		// TODO Auto-generated method stub
-		return null;
+		return joystic;
 	}
 	
 	static Image makeRotatedImage(String filename){
