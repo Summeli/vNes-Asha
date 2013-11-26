@@ -86,15 +86,15 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	
 	//dummy functions for returning shit we don't need
     public BufferView getImgPalView() {
-        return null;
+        return this.screenView;;
     }
     
     public BufferView getSprPalView() {
-        return null;
+        return this.screenView;;
     }
 
     public BufferView getNameTableView() {
-        return null;
+        return this.screenView;
     }
     
     public BufferView getPatternView() {

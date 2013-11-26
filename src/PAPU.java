@@ -916,8 +916,7 @@ public final class PAPU {
     }
 /*
     public SourceDataLine getLine() {
-    	return null;
-        //return line;
+    	 return line;
     }*/
 
     public boolean isRunning() {

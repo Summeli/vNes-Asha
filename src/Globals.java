@@ -24,8 +24,8 @@ public class Globals {
     public static int preferredFrameRate = 60;
     
     // Microseconds per frame:
-  //  public static int frameTime = 1000000 / preferredFrameRate;
-    //we have only microseconds in j2me
+	// TODO: we have only microseconds in j2me
+   //  public static int frameTime = 1000000 / preferredFrameRate;
     public static int frameTime = 1000 / preferredFrameRate;
     
     // What value to flush memory with on power-up:

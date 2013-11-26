@@ -472,7 +472,7 @@ public class PPU {
 
     public void startFrame() {
 
-        int[] buffer = nes.getGui().getScreenView().getBuffer();
+        int[] buff = nes.getGui().getScreenView().getBuffer();
 
         // Set background color:
         int bgColor = 0;
@@ -519,8 +519,8 @@ public class PPU {
 
         }
 
-        for (int i = 0; i < buffer.length; i++) {
-            buffer[i] = bgColor;
+        for (int i = 0; i < buff.length; i++) {
+        	buff[i] = bgColor;
         }
         for (int i = 0; i < pixrendered.length; i++) {
             pixrendered[i] = 65;
@@ -530,26 +530,26 @@ public class PPU {
 
     public void endFrame() {
 
-        int[] buffer = nes.getGui().getScreenView().getBuffer();
+        int[] buff = nes.getGui().getScreenView().getBuffer();
 
         // Draw spr#0 hit coordinates:
         if (showSpr0Hit) {
             // Spr 0 position:
             if (sprX[0] >= 0 && sprX[0] < 256 && sprY[0] >= 0 && sprY[0] < 240) {
                 for (int i = 0; i < 256; i++) {
-                    buffer[(sprY[0] << 8) + i] = 0xFF5555;
+                	buff[(sprY[0] << 8) + i] = 0xFF5555;
                 }
                 for (int i = 0; i < 240; i++) {
-                    buffer[(i << 8) + sprX[0]] = 0xFF5555;
+                	buff[(i << 8) + sprX[0]] = 0xFF5555;
                 }
             }
             // Hit position:
             if (spr0HitX >= 0 && spr0HitX < 256 && spr0HitY >= 0 && spr0HitY < 240) {
                 for (int i = 0; i < 256; i++) {
-                    buffer[(spr0HitY << 8) + i] = 0x55FF55;
+                	buff[(spr0HitY << 8) + i] = 0x55FF55;
                 }
                 for (int i = 0; i < 240; i++) {
-                    buffer[(i << 8) + spr0HitX] = 0x55FF55;
+                	buff[(i << 8) + spr0HitX] = 0x55FF55;
                 }
             }
         }
@@ -561,7 +561,7 @@ public class PPU {
             // Clip left 8-pixels column:
             for (int y = 0; y < 240; y++) {
                 for (int x = 0; x < 8; x++) {
-                    buffer[(y << 8) + x] = 0;
+                	buff[(y << 8) + x] = 0;
                 }
             }
         }
@@ -570,7 +570,7 @@ public class PPU {
             // Clip right 8-pixels column too:
             for (int y = 0; y < 240; y++) {
                 for (int x = 0; x < 8; x++) {
-                    buffer[(y << 8) + 255 - x] = 0;
+                	buff[(y << 8) + 255 - x] = 0;
                 }
             }
         }
@@ -579,14 +579,14 @@ public class PPU {
         if (clipTVrow) {
             for (int y = 0; y < 8; y++) {
                 for (int x = 0; x < 256; x++) {
-                    buffer[(y << 8) + x] = 0;
-                    buffer[((239 - y) << 8) + x] = 0;
+                	buff[(y << 8) + x] = 0;
+                	buff[((239 - y) << 8) + x] = 0;
                 }
             }
         }
 
         // Show sound buffer:
-        //TODO: no sound atm
+        //NO sound in this phase
         /*
         if (showSoundBuffer && nes.getPapu().getLine() != null) {
 
@@ -1011,8 +1011,7 @@ public class PPU {
 
     }
 
-    private void renderFramePartially(int[] buffer, int startScan, int scanCount) {
-
+    private void renderFramePartially(int[] buf, int startScan, int scanCount) {
         if (f_spVisibility == 1 && !Globals.disableSprites) {
             renderSpritesPartially(startScan, scanCount, true);
         }
@@ -1025,7 +1024,7 @@ public class PPU {
             }
             for (destIndex = si; destIndex < ei; destIndex++) {
                 if (pixrendered[destIndex] > 0xFF) {
-                    buffer[destIndex] = bgbuffer[destIndex];
+                	buf[destIndex] = bgbuffer[destIndex];
                 }
             }
         }
@@ -1048,13 +1047,13 @@ public class PPU {
                 si = i << 8;
                 jmax = si + 256;
                 for (j = si; j < jmax; j++) {
-                    if (buffer[j] != oldFrame[j]) {
+                    if (buf[j] != oldFrame[j]) {
                         scanlineChanged[i] = true;
                         break;
                     }
-                    oldFrame[j] = buffer[j];
+                    oldFrame[j] = buf[j];
                 }
-                System.arraycopy(buffer, j, oldFrame, j, jmax - j);
+                System.arraycopy(buf, j, oldFrame, j, jmax - j);
             }
 
         }
@@ -1063,7 +1062,7 @@ public class PPU {
 
     }
 
-    private void renderBgScanline(int[] buffer, int scan) {
+    private void renderBgScanline(int[] buff, int scan) {
 
         baseTile = (regS == 0 ? 0 : 256);
         destIndex = (scan << 8) - regFH;
@@ -1106,7 +1105,7 @@ public class PPU {
                         }
                         if (t.opaque[cntFV]) {
                             for (; sx < 8; sx++) {
-                                buffer[destIndex] = imgPalette[tpix[tscanoffset + sx] + att];
+                            	buff[destIndex] = imgPalette[tpix[tscanoffset + sx] + att];
                                 pixrendered[destIndex] |= 256;
                                 destIndex++;
                             }
@@ -1114,7 +1113,7 @@ public class PPU {
                             for (; sx < 8; sx++) {
                                 col = tpix[tscanoffset + sx];
                                 if (col != 0) {
-                                    buffer[destIndex] = imgPalette[col + att];
+                                	buff[destIndex] = imgPalette[col + att];
                                     pixrendered[destIndex] |= 256;
                                 }
                                 destIndex++;
@@ -1164,8 +1163,7 @@ public class PPU {
     }
 
     private void renderSpritesPartially(int startscan, int scancount, boolean bgPri) {
-
-        buffer = nes.getGui().getScreenView().getBuffer();
+        this.buffer = nes.getGui().getScreenView().getBuffer();
         if (f_spVisibility == 1) {
 
             int sprT1, sprT2;
@@ -1386,13 +1384,13 @@ public class PPU {
     public void renderPattern() {
 
         BufferView scr = nes.getGui().getPatternView();
-        int[] buffer = scr.getBuffer();
+        int[] buff = scr.getBuffer();
 
         int tIndex = 0;
         for (int j = 0; j < 2; j++) {
             for (int y = 0; y < 16; y++) {
                 for (int x = 0; x < 16; x++) {
-                    ptTile[tIndex].renderSimple(j * 128 + x * 8, y * 8, buffer, 0, sprPalette);
+                    ptTile[tIndex].renderSimple(j * 128 + x * 8, y * 8, buff, 0, sprPalette);
                     tIndex++;
                 }
             }
@@ -1403,7 +1401,7 @@ public class PPU {
 
     public void renderNameTables() {
 
-        int[] buffer = nes.getGui().getNameTableView().getBuffer();
+        int[] buff = nes.getGui().getNameTableView().getBuffer();
         if (f_bgPatternTable == 0) {
             baseTile = 0;
         } else {
@@ -1430,7 +1428,7 @@ public class PPU {
                 for (int ty = 0; ty < 30; ty++) {
                     for (int tx = 0; tx < 32; tx++) {
                         //ptTile[baseTile+nameTable[nt].getTileIndex(tx,ty)].render(0,0,4,4,x+tx*4,y+ty*4,buffer,nameTable[nt].getAttrib(tx,ty),imgPalette,false,false,0,dummyPixPriTable);
-                        ptTile[baseTile + nameTable[nt].getTileIndex(tx, ty)].renderSmall(x + tx * 4, y + ty * 4, buffer, nameTable[nt].getAttrib(tx, ty), imgPalette);
+                        ptTile[baseTile + nameTable[nt].getTileIndex(tx, ty)].renderSmall(x + tx * 4, y + ty * 4, buff, nameTable[nt].getAttrib(tx, ty), imgPalette);
                     }
                 }
 
@@ -1441,14 +1439,14 @@ public class PPU {
             // double horizontally:
             for (int y = 0; y < 240; y++) {
                 for (int x = 0; x < 128; x++) {
-                    buffer[(y << 8) + 128 + x] = buffer[(y << 8) + x];
+                	buff[(y << 8) + 128 + x] = buff[(y << 8) + x];
                 }
             }
         } else if (currentMirroring == ROM.VERTICAL_MIRRORING) {
             // double vertically:
             for (int y = 0; y < 120; y++) {
                 for (int x = 0; x < 256; x++) {
-                    buffer[(y << 8) + 0x7800 + x] = buffer[(y << 8) + x];
+                	buff[(y << 8) + 0x7800 + x] = buff[(y << 8) + x];
                 }
             }
         }
@@ -1459,20 +1457,20 @@ public class PPU {
 
     private void renderPalettes() {
 
-        int[] buffer = nes.getGui().getImgPalView().getBuffer();
+        int[] buff = nes.getGui().getImgPalView().getBuffer();
         for (int i = 0; i < 16; i++) {
             for (int y = 0; y < 16; y++) {
                 for (int x = 0; x < 16; x++) {
-                    buffer[y * 256 + i * 16 + x] = imgPalette[i];
+                	buff[y * 256 + i * 16 + x] = imgPalette[i];
                 }
             }
         }
 
-        buffer = nes.getGui().getSprPalView().getBuffer();
+        buff = nes.getGui().getSprPalView().getBuffer();
         for (int i = 0; i < 16; i++) {
             for (int y = 0; y < 16; y++) {
                 for (int x = 0; x < 16; x++) {
-                    buffer[y * 256 + i * 16 + x] = sprPalette[i];
+                	buff[y * 256 + i * 16 + x] = sprPalette[i];
                 }
             }
         }

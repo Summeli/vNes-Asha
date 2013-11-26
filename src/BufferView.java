@@ -84,7 +84,7 @@ public class BufferView {
     }
 
     public int[] getBuffer() {
-        return pix;
+        return this.pix;
     }
 
     public void update(Graphics g) {

@@ -202,7 +202,12 @@ public final class CPU implements Runnable{
 	}
 
 	public void run(){
+		initRun();
 		emulate();
+	}
+
+	public synchronized void initRun(){
+		stopRunning = false;
 	}
 
 	// Emulates cpu instructions until stopped.
