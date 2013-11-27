@@ -1957,7 +1957,8 @@ public class PPU {
         J2MEUtils.fillArray(oldFrame, -1);
         // Initialize stuff:
         init();
-
+        
+        this.buffer = nes.getGui().getScreenView().getBuffer();
     }
 
     public void destroy() {

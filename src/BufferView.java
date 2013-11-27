@@ -74,7 +74,8 @@ public class BufferView {
             
             //TODO: paint
             //paint(getGraphics());
-            canvas.imageReady(skipFrame);
+            //canvas.imageReady(skipFrame);
+            img = Image.createRGBImage(pix, width, height, true);
         }
 
     }

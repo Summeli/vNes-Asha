@@ -36,7 +36,7 @@ public class ScreenView extends BufferView {
     public void imageReady(boolean skipFrame) {
 
         // Draw image first:
-       // super.imageReady(skipFrame);
+        super.imageReady(skipFrame);
 
         // Notify GUI, so it can write the sound buffer:
         

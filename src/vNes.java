@@ -26,22 +26,29 @@ public class vNes extends MIDlet implements CommandListener {
 		showMainMenu();
 		
 	}
-	public void commandAction(Command arg0, Displayable arg1) {
-		String item = mainMenu.getString(mainMenu.getSelectedIndex());
-		if (item == "Load ROM") {
-			if(vNesSettings.isAsha == true){
-				fileSelector.showAshaFileSelectionDialog();
-			}else{
-				fileSelector.initialize();
-				display.setCurrent(fileSelector);
+	public void commandAction(Command cmd, Displayable s) {
+		if( s == messageForm){
+			if(cmd.getCommandType() == Command.BACK){
+				showMainMenu();
 			}
-		}else if (item == "About") {
-			showMessage(vNesSettings.getVersionString(), vNesSettings.getVersionString() + " for S40 and Nokia Asha \n" +
-					                 "by: Antti Pohjola, summeli@summeli.fi \nhttp://www.summeli.fi\n"+
-					                 "vNes is licenced under GPLv2 licence \n" +
-					                 "You can get the source code from: http://github.com/Summeli/Meboy-Asha \n\n"+
-					                 "Meboy was originally developed for j2ME by: Björn Carlin, 2005-2009.\nhttp://arktos.se/meboy/ \n\n"+
-					                 "LEGAL: This product is not affiliated with, not authorized, endorsed or licensed in any way by Nintendo Corporation, its affiliates or subsidiaries.");
+		}
+		else{
+			String item = mainMenu.getString(mainMenu.getSelectedIndex());
+			if (item == "Load ROM") {
+				if(vNesSettings.isAsha == true){
+					fileSelector.showAshaFileSelectionDialog();
+				}else{
+					fileSelector.initialize();
+					display.setCurrent(fileSelector);
+				}
+			}else if (item == "About") {
+				showMessage(vNesSettings.getVersionString(), vNesSettings.getVersionString() + " for S40 and Nokia Asha \n" +
+						                 "by: Antti Pohjola, summeli@summeli.fi \nhttp://www.summeli.fi\n"+
+						                 "vNes is licenced under GPLv2 licence \n" +
+						                 "You can get the source code from: http://github.com/Summeli/Meboy-Asha \n\n"+
+						                 "Meboy was originally developed for j2ME by: Björn Carlin, 2005-2009.\nhttp://arktos.se/meboy/ \n\n"+
+						                 "LEGAL: This product is not affiliated with, not authorized, endorsed or licensed in any way by Nintendo Corporation, its affiliates or subsidiaries.");
+			}
 		}
 	}
 
@@ -87,7 +94,7 @@ public class vNes extends MIDlet implements CommandListener {
 		
 	}
 	public void loadSelectedRom(String url) {
-		// TODO Auto-generated method stub
+		display.setCurrent(canvasUI);
 		canvasUI.loadROM(url);
 	}
 	

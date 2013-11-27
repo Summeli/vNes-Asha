@@ -20,9 +20,10 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	vNesCanvas(vNes p) {
 		parent = p;
 		timer = new HiResTimer();
+		inputHandler = new vNesKeyHandler();
 		nes = new NES(this);
 		screenView = new ScreenView(nes,this,256,240);
-		inputHandler = new vNesKeyHandler();
+		
 	}
 	
 	public void loadROM(String uri){
@@ -62,7 +63,6 @@ public class vNesCanvas extends Canvas implements CommandListener, MultipointTou
 	}
 
 	protected void paint(Graphics g) {
-		// TODO Auto-generated method stub
 		g.drawImage(screenView.getImage(), 0, 0, 20);
 	}
 
